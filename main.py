@@ -8,3 +8,24 @@ from money_machine import MoneyMachine
 from logo import logo
 
 print(logo)
+
+menu = Menu()
+# menu_item = MenuItem()
+money_machine = MoneyMachine()
+coffee_maker = CoffeeMaker()
+is_on = True
+
+while is_on:
+
+    initial_selection = input(f"What would you like today? {menu.get_items()}:")
+    if initial_selection == "report":
+        coffee_maker.report()
+        money_machine.report()
+    elif initial_selection == "off":
+        is_on = False
+    else:
+        drink_selection = menu.find_drink(initial_selection)
+        if coffee_maker.is_resource_sufficient(drink_selection):
+            money_machine.process_coins()
+            if money_machine.make_payment(drink_selection):
+                coffee_maker.make_coffee()
